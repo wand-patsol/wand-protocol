@@ -10,7 +10,8 @@ Wand 팀의 개발 컨벤션과 AI 코딩 도구 설정 가이드입니다.
 wand-protocol/
 ├── README.md              # 이 파일
 ├── rules/
-│   └── CONVENTIONS.md     # 메인 개발 규칙
+│   ├── CONVENTIONS.md     # 메인 개발 규칙
+│   └── JIRA.md            # JIRA 이슈 작성 프로토콜
 └── setup/
     ├── CLAUDE.md          # Claude Code 설정
     ├── CURSOR.md          # Cursor AI 설정
@@ -30,7 +31,16 @@ wand-protocol/
 - PR 규칙 및 리뷰 프로세스
 - 코드 스타일 (Backend/Frontend)
 
-### 2. AI 도구 설정
+### 2. JIRA 이슈 작성
+
+[rules/JIRA.md](./rules/JIRA.md) 파일에서 다음 내용을 확인하세요:
+
+- 이슈 제목/설명 작성 규칙
+- 이슈 유형, 우선순위, 스토리 포인트 기준
+- OKR 연결 가이드
+- AI 성과 평가와의 연계
+
+### 3. AI 도구 설정
 
 사용하는 AI 도구에 맞는 설정 가이드를 따르세요:
 
@@ -66,6 +76,14 @@ h-PS-456/hotfix-name
 
 ```
 AI 자동 검증 (타입/린트/import) → 1인 리뷰어 (로직/플로우) → Merge
+```
+
+### JIRA 이슈 제목
+
+```bash
+[feat] 유사도 분석 - 청구항 기반 비교 알고리즘 추가
+[fix] 명세서 생성 - PDF 내보내기 시 한글 깨짐 수정
+[perf] 대시보드 - 초기 로딩 3초→1초 이내로 개선
 ```
 
 ---
