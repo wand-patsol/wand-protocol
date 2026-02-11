@@ -136,31 +136,59 @@ cd wand-protocol/mcp/jira-protocol
 npm install && npm run build
 ```
 
-#### Claude Code에서 사용
+> 프로토콜이 업데이트되면 `git pull && npm run build`만 다시 실행하세요.
 
-프로젝트의 `.mcp.json`에 추가:
+#### 도구별 MCP 설정
+
+아래에서 `<경로>`는 각자 clone한 `wand-protocol`의 절대 경로로 바꿔주세요.
+
+**Claude Code** — 프로젝트 루트에 `.mcp.json` 생성:
 
 ```json
 {
   "mcpServers": {
     "jira-protocol": {
       "command": "node",
-      "args": ["<자기 경로>/wand-protocol/mcp/jira-protocol/dist/index.js"]
+      "args": ["<경로>/wand-protocol/mcp/jira-protocol/dist/index.js"]
     }
   }
 }
 ```
 
-#### Cursor에서 사용
-
-`.cursor/mcp.json`에 추가:
+**Gemini CLI** — `~/.gemini/settings.json`에 추가:
 
 ```json
 {
   "mcpServers": {
     "jira-protocol": {
       "command": "node",
-      "args": ["<자기 경로>/wand-protocol/mcp/jira-protocol/dist/index.js"]
+      "args": ["<경로>/wand-protocol/mcp/jira-protocol/dist/index.js"]
+    }
+  }
+}
+```
+
+**Antigravity** — 프로젝트 루트에 `.antigravity/settings.json` 생성:
+
+```json
+{
+  "mcpServers": {
+    "jira-protocol": {
+      "command": "node",
+      "args": ["<경로>/wand-protocol/mcp/jira-protocol/dist/index.js"]
+    }
+  }
+}
+```
+
+**Cursor** — 프로젝트 루트에 `.cursor/mcp.json` 생성:
+
+```json
+{
+  "mcpServers": {
+    "jira-protocol": {
+      "command": "node",
+      "args": ["<경로>/wand-protocol/mcp/jira-protocol/dist/index.js"]
     }
   }
 }
@@ -175,27 +203,46 @@ npm install && npm run build
 | Prompt | `review-jira-issue` | 이슈 검토 | 이슈 제출 전 점검 |
 | Prompt | `complete-jira-issue` | 완료 코멘트 작성 | 이슈 Done 전환 시 |
 
-#### 사용 예시
+#### 도구별 사용 예시
+
+모든 도구에서 **자연어로 요청**하면 AI가 프로토콜을 자동 참조합니다. 프롬프트를 직접 호출할 수도 있습니다.
 
 **Claude Code (터미널):**
-```
-# 방법 1: 자연어로 요청
-> "검색 API 응답 시간 개선 작업을 JIRA 이슈로 만들어줘"
 
-# 방법 2: 프롬프트 직접 호출
-> /mcp 에서 create-jira-issue 선택 → 작업 설명 입력
+```bash
+# 자연어 요청 — AI가 알아서 프로토콜 참조
+> 검색 API 응답 시간 개선 작업을 JIRA 이슈로 만들어줘
+
+# 프롬프트 직접 호출
+> /mcp  →  create-jira-issue 선택  →  인자 입력
+```
+
+**Gemini CLI (터미널):**
+
+```bash
+# 자연어 요청
+> 검색 API 응답 시간 개선 작업을 JIRA 이슈로 만들어줘
+
+# 프롬프트를 슬래시 명령으로 직접 호출
+> /create-jira-issue --task_description="검색 API 응답 시간 개선"
+
+# 리소스를 @ 문법으로 직접 참조
+> @jira-protocol://rules 이 프로토콜의 스토리 포인트 기준 알려줘
+```
+
+**Antigravity (에디터):**
+
+```
+# Agent/Chat 패널에서 자연어 요청
+> 검색 API 응답 시간 개선 작업을 JIRA 이슈로 만들어줘
 ```
 
 **Cursor (에디터):**
-```
-# Composer(Cmd+I)에서 자연어로 요청
-"유사도 분석 결과 캐싱 기능을 JIRA 이슈로 작성해줘"
 
-# 또는 @MCP 멘션으로 프롬프트 선택
-@jira-protocol create-jira-issue 작업 설명...
 ```
-
-MCP 서버가 연결되어 있으면, AI가 JIRA 관련 요청 시 프로토콜을 자동으로 참조합니다.
+# Composer(Cmd+I)에서 자연어 요청
+> 유사도 분석 결과 캐싱 기능을 JIRA 이슈로 작성해줘
+```
 
 ---
 
